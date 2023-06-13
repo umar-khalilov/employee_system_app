@@ -4,12 +4,12 @@ import { Environment } from '@/app/constants/Environment';
 import { validateEnv } from '@/app/validateEnv';
 import { LoggerService } from '../services/LoggerService';
 import { GenericObject } from './GenericObject';
-import { ConfigurationObject } from './ConfigurationObject';
+import { ConfigurationType } from './ConfigurationType';
 
 export class ConfigurationService {
     private static readonly instance: ConfigurationService;
     private readonly logger: LoggerService;
-    private readonly variables: ConfigurationObject;
+    private readonly variables: ConfigurationType;
     private readonly configs: GenericObject;
 
     constructor() {
@@ -29,7 +29,7 @@ export class ConfigurationService {
         this.logger.log('Initialized');
     }
 
-    private loadEnvConfig(): ConfigurationObject {
+    private loadEnvConfig(): ConfigurationType {
         const envFile = configDotenv({
             path: join(__dirname, '..', '..', '..', '.env'),
         });

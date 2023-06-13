@@ -1,6 +1,6 @@
 import { Environment } from '@/app/constants/Environment';
 
-export type ConfigurationObject = {
+export type ConfigurationType = {
     readonly NODE_ENV: Environment;
     readonly SERVER_PORT: string;
     readonly SERVER_URL: string;
