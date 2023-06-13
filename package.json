@@ -1,0 +1,39 @@
+{
+    "name": "employee_system_app",
+    "version": "1.0.0",
+    "description": "Employee management system",
+    "main": "./src/main.ts",
+    "repository": "git@github.com:umar-khalilov/employee_system_app.git",
+    "author": "Umar Khalilov <ERMASTER100@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build": "rimraf ./build && tsc --project .",
+        "start:prod": "node ./build/main.js",
+        "start:dev": "nodemon",
+        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+        "prettier:check": "prettier --check ./",
+        "prettier:fix": "prettier --write ./"
+    },
+    "dependencies": {
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.0",
+        "dotenv": "^16.1.4"
+    },
+    "devDependencies": {
+        "@total-typescript/ts-reset": "^0.4.2",
+        "@types/node": "^20.3.1",
+        "@typescript-eslint/eslint-plugin": "^5.59.11",
+        "@typescript-eslint/parser": "^5.59.11",
+        "eslint": "^8.42.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "nodemon": "^2.0.22",
+        "prettier": "^2.8.8",
+        "reflect-metadata": "^0.1.13",
+        "rimraf": "^5.0.1",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.1.3"
+    }
+}
