@@ -17,7 +17,7 @@ module.exports = {
         jest: true,
         es6: true,
     },
-    ignorePatterns: ['.eslintrc.js'],
+    ignorePatterns: ['.eslintrc.js', 'reset.d.ts'],
     rules: {
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/naming-convention': [

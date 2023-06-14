@@ -1,6 +1,6 @@
 export enum SubDepartmentTypes {
-    Platform,
-    Loan,
-    CustomerOnboarding,
-    Agriculture,
+    Platform = 'Platform',
+    Loan = 'Loan',
+    CustomerOnboarding = 'CustomerOnboarding',
+    Agriculture = 'Agriculture',
 }

@@ -1,6 +1,12 @@
-import { Server, createServer } from 'http';
+import {
+    IncomingMessage,
+    Server,
+    ServerResponse,
+    createServer,
+} from 'node:http';
 import { ConfigurationService } from './common/configs/ConfigurationService';
 import { LoggerService } from './common/services/LoggerService';
+import { Routes } from './routes/Routes';
 
 export class App {
     private readonly application: Server;
@@ -11,12 +17,27 @@ export class App {
     constructor() {
         this.configs = new ConfigurationService();
         this.logger = new LoggerService(App.name);
-        this.application = createServer(async (req, res) => {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end('Welcome to my test backend');
-        });
+        this.application = createServer(
+            async (request: IncomingMessage, response: ServerResponse) => {
+                this.turnOnHeaders(request, response);
+                Routes.mainRouter(request, response);
+            },
+        );
         this.serverPort = +this.configs.get('SERVER_PORT', 3000);
         this.logger.log('Initialized');
+    }
+
+    private turnOnHeaders(
+        request: IncomingMessage,
+        response: ServerResponse,
+    ): void {
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.setHeader('Access-Control-Allow-Headers', '*');
+        response.setHeader(
+            'Access-Control-Allow-Methods',
+            'OPTIONS, POST, GET, PUT, PATCH, DELETE',
+        );
+        response.setHeader('Access-Control-Max-Age', 2592000);
     }
 
     public async listen(): Promise<void> {

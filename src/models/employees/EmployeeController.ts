@@ -1,6 +1,6 @@
 import { EmployeeEntity } from './EmployeeEntity';
 import { EmployeeService } from './EmployeeService';
-import { CreateEmployeeDto } from './dtos/CreateEmployeeDto';
+import { EmployeeDto } from './dtos/EmployeeDto';
 import { IEmployee } from './interfaces/IEmployee';
 
 export class EmployeeController implements IEmployee {
@@ -10,7 +10,7 @@ export class EmployeeController implements IEmployee {
         this.employeeService = new EmployeeService();
     }
 
-    async createOneEmployee(data: CreateEmployeeDto): Promise<EmployeeEntity> {
+    async createOneEmployee(data: EmployeeDto): Promise<EmployeeEntity> {
         return this.employeeService.createOneEmployee(data);
     }
 
@@ -24,8 +24,12 @@ export class EmployeeController implements IEmployee {
 
     async updateOneEmployee(
         id: number,
-        data: CreateEmployeeDto,
+        data: EmployeeDto,
     ): Promise<EmployeeEntity> {
         return this.employeeService.updateOneEmployee(id, data);
+    }
+
+    async removeOneEmployee(id: number): Promise<boolean> {
+        return this.employeeService.removeOneEmployee(id);
     }
 }

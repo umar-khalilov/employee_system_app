@@ -2,7 +2,7 @@ import { NotFoundException } from '@/common/exceptions/NotFoundException';
 import { EmployeeEntity } from './EmployeeEntity';
 import { EmployeeRepository } from './EmployeeRepository';
 import { LoggerService } from '@/common/services/LoggerService';
-import { CreateEmployeeDto } from './dtos/CreateEmployeeDto';
+import { EmployeeDto } from './dtos/EmployeeDto';
 import { BadRequestException } from '@/common/exceptions/BadRequestException';
 import { IEmployee } from './interfaces/IEmployee';
 
@@ -16,7 +16,7 @@ export class EmployeeService implements IEmployee {
         this.logger.log('Initialized');
     }
 
-    async createOneEmployee(data: CreateEmployeeDto): Promise<EmployeeEntity> {
+    async createOneEmployee(data: EmployeeDto): Promise<EmployeeEntity> {
         const createdEmployee = await this.employeeRepository.createOne(data);
         if (!createdEmployee) {
             throw new BadRequestException();
@@ -44,7 +44,7 @@ export class EmployeeService implements IEmployee {
 
     async updateOneEmployee(
         id: number,
-        data: CreateEmployeeDto,
+        data: EmployeeDto,
     ): Promise<EmployeeEntity> {
         const updatedEmployee = await this.employeeRepository.updateOne(
             id,
@@ -57,5 +57,15 @@ export class EmployeeService implements IEmployee {
             );
         }
         return updatedEmployee;
+    }
+
+    async removeOneEmployee(id: number): Promise<boolean> {
+        const isRemoved = await this.employeeRepository.removeOne(id);
+        if (!isRemoved) {
+            throw new NotFoundException(
+                `Employee with that: ${id} was not found`,
+            );
+        }
+        return isRemoved;
     }
 }

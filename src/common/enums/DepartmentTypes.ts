@@ -1,6 +1,6 @@
 export enum DepartmentTypes {
-    Engineering,
-    Banking,
-    Operations,
-    Administration,
+    Engineering = 'Engineering',
+    Banking = 'Banking',
+    Operations = 'Operations',
+    Administration = 'Administration',
 }

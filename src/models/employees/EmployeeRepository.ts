@@ -1,12 +1,12 @@
 import { LoggerService } from '@/common/services/LoggerService';
 import { IGenericRepository } from '../abstracts/IGenericRepository';
 import { EmployeeEntity } from './EmployeeEntity';
-import { CreateEmployeeDto } from './dtos/CreateEmployeeDto';
 import { InMemoryDatabase } from '@/app/InMemoryDatabase';
 import { ListTables } from '@/common/enums/ListTables';
+import { EmployeeDto } from './dtos/EmployeeDto';
 
 export class EmployeeRepository
-    implements IGenericRepository<CreateEmployeeDto, EmployeeEntity>
+    implements IGenericRepository<EmployeeDto, EmployeeEntity>
 {
     private readonly database: InMemoryDatabase;
     private employees: EmployeeEntity[];
@@ -28,22 +28,29 @@ export class EmployeeRepository
         return this.employees;
     }
 
-    async findOne(id: number): Promise<EmployeeEntity> {
+    async findOne(id): Promise<EmployeeEntity> {
         return this.employees.find(employee => employee.id === id);
     }
 
-    async createOne(data: CreateEmployeeDto): Promise<EmployeeEntity> {
+    async createOne(data: EmployeeDto): Promise<EmployeeEntity> {
         const employee = new EmployeeEntity(data);
         this.employees.push(employee);
         return employee;
     }
 
-    async updateOne(
-        id: number,
-        data: CreateEmployeeDto,
-    ): Promise<EmployeeEntity> {
+    async updateOne(id: number, data: EmployeeDto): Promise<EmployeeEntity> {
         const employee = await this.findOne(id);
         Object.assign(employee, data);
         return employee;
+    }
+
+    async removeOne(id: number): Promise<boolean> {
+        const index = this.employees.findIndex(employee => employee.id === id);
+
+        if (index !== -1) {
+            this.employees.splice(index, 1);
+            return true;
+        }
+        return false;
     }
 }

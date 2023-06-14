@@ -1,24 +1,27 @@
-import { AbstractEntity } from '../abstracts/AbstractEntity';
 import { CurrencyTypes } from '@/common/enums/CurrencyTypes';
 import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
 import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
-import { CreateEmployeeDto } from './dtos/CreateEmployeeDto';
+import { EmployeeDto } from './dtos/EmployeeDto';
 
-export class EmployeeEntity extends AbstractEntity {
+let serialId = 9;
+export class EmployeeEntity {
+    readonly id: number;
     name: string;
     salary: number;
     currency: CurrencyTypes;
     department: DepartmentTypes;
     on_contract?: boolean;
     sub_department: SubDepartmentTypes;
+    readonly created_at: Date;
 
-    constructor(data: CreateEmployeeDto) {
-        super();
+    constructor(data: EmployeeDto) {
+        this.id = ++serialId;
         this.name = data.name;
         this.salary = data.salary;
         this.currency = data.currency;
         this.department = data.department;
         this.on_contract = data.on_contract;
         this.sub_department = data.sub_department;
+        this.created_at = new Date();
     }
 }

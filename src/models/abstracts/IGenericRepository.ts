@@ -3,4 +3,5 @@ export interface IGenericRepository<I, O> {
     findAll(): Promise<O[]>;
     findOne(id: number): Promise<O>;
     updateOne(id: number, data: I): Promise<O>;
+    removeOne(id: number): Promise<boolean>;
 }

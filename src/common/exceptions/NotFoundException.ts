@@ -1,5 +1,5 @@
 import { HttpException } from './HttpException';
-import { HttpStatusCodes } from '../utils/HttpStatusCodes';
+import { HttpStatusCodes } from '../enums/HttpStatusCodes';
 
 export class NotFoundException extends HttpException {
     constructor(message = 'Not found') {
