@@ -20,7 +20,7 @@ export class EmployeeRepository
         this.logger.log('Initialized');
     }
 
-    async getTable(table: ListTables): Promise<void> {
+    private async getTable(table: ListTables): Promise<void> {
         this.employees = await this.database.get(table);
     }
 

@@ -13,7 +13,7 @@ export const employeeRoutes = Object.freeze({
         res.writeHead(HttpStatusCodes.OK, {
             'Content-Type': 'text/plain',
         });
-        res.end('Welcome to my light isRemoved server!');
+        res.end('Welcome to my light server!');
     },
     createOne: async (
         req: IncomingMessage,
@@ -52,7 +52,6 @@ export const employeeRoutes = Object.freeze({
             res.end(JSON.stringify(error, null, 4));
         }
     },
-
     findAll: async (
         req: IncomingMessage,
         res: ServerResponse,
@@ -73,7 +72,6 @@ export const employeeRoutes = Object.freeze({
             res.end(JSON.stringify(error, null, 4));
         }
     },
-
     findOne: async (
         req: IncomingMessage,
         res: ServerResponse,
@@ -95,7 +93,6 @@ export const employeeRoutes = Object.freeze({
             res.end(JSON.stringify(error, null, 4));
         }
     },
-
     updateOne: async (
         req: IncomingMessage,
         res: ServerResponse,
@@ -136,7 +133,6 @@ export const employeeRoutes = Object.freeze({
             res.end(JSON.stringify(error, null, 4));
         }
     },
-
     removeOne: async (
         req: IncomingMessage,
         res: ServerResponse,
