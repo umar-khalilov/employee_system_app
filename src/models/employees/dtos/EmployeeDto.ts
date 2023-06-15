@@ -9,9 +9,9 @@ import {
     Length,
     Matches,
 } from 'class-validator';
-import { CurrencyTypes } from '@/common/enums/CurrencyTypes';
-import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
-import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
+import { CurrencyTypes } from '../../../common/enums/CurrencyTypes';
+import { DepartmentTypes } from '../../../common/enums/DepartmentTypes';
+import { SubDepartmentTypes } from '../../../common/enums/SubDepartmentTypes';
 
 export class EmployeeDto {
     @Length(3, 300, {

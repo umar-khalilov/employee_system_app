@@ -1,8 +1,8 @@
 import { IGenericRepository } from '../abstracts/IGenericRepository';
 import { EmployeeEntity } from './EmployeeEntity';
-import { InMemoryDatabase } from '@/app/InMemoryDatabase';
-import { LoggerService } from '@/common/services/LoggerService';
-import { ListTables } from '@/common/enums/ListTables';
+import { InMemoryDatabase } from '../../app/InMemoryDatabase';
+import { LoggerService } from '../../common/services/LoggerService';
+import { ListTables } from '../../common/enums/ListTables';
 import { EmployeeDto } from './dtos/EmployeeDto';
 import { QueryParamsDto } from './dtos/QueryParamsDto';
 

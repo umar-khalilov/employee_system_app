@@ -1,10 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
-import { LoggerService } from '@/common/services/LoggerService';
-import { NotFoundException } from '@/common/exceptions/NotFoundException';
-import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
-import { conditions, getQueryParams } from '@/common/utils/helpers';
-import { authController } from '@/auth/AuthController';
-import { employeeController } from '@/models/employees/EmployeeController';
+import { LoggerService } from '../common/services/LoggerService';
+import { NotFoundException } from '../common/exceptions/NotFoundException';
+import { HttpStatusCodes } from '../common/enums/HttpStatusCodes';
+import { conditions, getQueryParams } from '../common/utils/helpers';
+import { authController } from '../auth/AuthController';
+import { employeeController } from '../models/employees/EmployeeController';
 
 export class Routes {
     private static readonly logger = new LoggerService(Routes.name).log(

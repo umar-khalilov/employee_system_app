@@ -1,17 +1,17 @@
-import { EmployeeAlreadyExistException } from '@/common/exceptions/EmployeeAlreadyExistException';
-import { UnauthorizedException } from '@/common/exceptions/UnauthorizedException';
-import { HashService } from '@/common/services/HashService';
-import { JWTService, jwtService } from '@/common/services/JWTService';
-import { LoggerService } from '@/common/services/LoggerService';
-import { AuthData, TokenPayload } from '@/common/types/GeneralTypes';
-import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
+import { EmployeeAlreadyExistException } from '../common/exceptions/EmployeeAlreadyExistException';
+import { UnauthorizedException } from '../common/exceptions/UnauthorizedException';
+import { HashService } from '../common/services/HashService';
+import { JWTService, jwtService } from '../common/services/JWTService';
+import { LoggerService } from '../common/services/LoggerService';
+import { AuthData, TokenPayload } from '../common/types/GeneralTypes';
+import { EmployeeEntity } from '../models/employees/EmployeeEntity';
 import {
     EmployeeService,
     employeeService,
-} from '@/models/employees/EmployeeService';
-import { EmployeeDto } from '@/models/employees/dtos/EmployeeDto';
+} from '../models/employees/EmployeeService';
+import { EmployeeDto } from '../models/employees/dtos/EmployeeDto';
 import { SignInDto } from './SignInDto';
-import { ResponseEmployeeDto } from '@/models/employees/dtos/ResponseEmployeeDto';
+import { ResponseEmployeeDto } from '../models/employees/dtos/ResponseEmployeeDto';
 
 export class AuthService {
     private static readonly instance: AuthService;

@@ -1,12 +1,12 @@
 import { IDatabase } from './IDatabase';
-import { CurrencyTypes } from '@/common/enums/CurrencyTypes';
-import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
-import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
-import { ListGenericTables, TableTypes } from '@/common/types/GeneralTypes';
+import { CurrencyTypes } from '../common/enums/CurrencyTypes';
+import { DepartmentTypes } from '../common/enums/DepartmentTypes';
+import { SubDepartmentTypes } from '../common/enums/SubDepartmentTypes';
+import { ListGenericTables, TableTypes } from '../common/types/GeneralTypes';
 import { ListTables } from '../common/enums/ListTables';
-import { LoggerService } from '@/common/services/LoggerService';
-import { HashService } from '@/common/services/HashService';
-import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
+import { LoggerService } from '../common/services/LoggerService';
+import { HashService } from '../common/services/HashService';
+import { EmployeeEntity } from '../models/employees/EmployeeEntity';
 
 export class InMemoryDatabase implements IDatabase {
     private static readonly instance: InMemoryDatabase;

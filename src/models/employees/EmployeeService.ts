@@ -1,12 +1,12 @@
-import { NotFoundException } from '@/common/exceptions/NotFoundException';
+import { NotFoundException } from '../../common/exceptions/NotFoundException';
 import { EmployeeEntity } from './EmployeeEntity';
 import { EmployeeRepository, employeeRepository } from './EmployeeRepository';
-import { LoggerService } from '@/common/services/LoggerService';
+import { LoggerService } from '../../common/services/LoggerService';
 import { EmployeeDto } from './dtos/EmployeeDto';
-import { BadRequestException } from '@/common/exceptions/BadRequestException';
+import { BadRequestException } from '../../common/exceptions/BadRequestException';
 import { IEmployee } from './interfaces/IEmployee';
 import { QueryParamsDto } from './dtos/QueryParamsDto';
-import { HashService } from '@/common/services/HashService';
+import { HashService } from '../../common/services/HashService';
 import { ResponseEmployeeDto } from './dtos/ResponseEmployeeDto';
 
 export class EmployeeService implements IEmployee {

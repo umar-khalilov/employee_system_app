@@ -1,11 +1,8 @@
 {
     "ts-node": {
         "transpileOnly": true,
-        "require": [
-            "tsconfig-paths/register"
-        ],
         "files": true,
-        "esm": true,
+        "esm": true
     },
     "compilerOptions": {
         "module": "NodeNext",
@@ -29,11 +26,6 @@
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "esModuleInterop": true,
-        "paths": {
-            "@/*": [
-                "src/*"
-            ],
-        },
         "typeRoots": [
             "./node_modules/@types"
         ],

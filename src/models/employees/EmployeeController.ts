@@ -2,12 +2,12 @@ import { IncomingMessage, ServerResponse } from 'node:http';
 import { EmployeeService, employeeService } from './EmployeeService';
 import { EmployeeDto } from './dtos/EmployeeDto';
 import { QueryParamsDto } from './dtos/QueryParamsDto';
-import { createValidatorQuery } from '@/common/middlewares/createValidatorQuery';
-import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
-import { getReqData } from '@/common/utils/helpers';
-import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
-import { verifyAccessToken } from '@/common/middlewares/verifyAccessToken';
-import { UnauthorizedException } from '@/common/exceptions/UnauthorizedException';
+import { createValidatorQuery } from '../../common/middlewares/createValidatorQuery';
+import { HttpStatusCodes } from '../../common/enums/HttpStatusCodes';
+import { getReqData } from '../../common/utils/helpers';
+import { createValidatorBody } from '../../common/middlewares/createValidatorBody';
+import { verifyAccessToken } from '../../common/middlewares/verifyAccessToken';
+import { UnauthorizedException } from '../../common/exceptions/UnauthorizedException';
 
 export class EmployeeController {
     private static readonly instance: EmployeeController;

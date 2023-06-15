@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { config as configDotenv } from 'dotenv';
-import { Environment } from '@/app/constants/Environment';
-import { validateEnv } from '@/app/validateEnv';
+import { Environment } from '../../app/constants/Environment';
+import { validateEnv } from '../../app/validateEnv';
 import { LoggerService } from '../services/LoggerService';
 import { GenericObject } from './GenericObject';
 import { ConfigurationType } from './ConfigurationType';
@@ -20,7 +20,7 @@ export class ConfigurationService {
         this.logger = new LoggerService(ConfigurationService.name);
         this.configs = {
             NODE_ENV: this.variables.NODE_ENV,
-            SERVER_PORT: parseInt(this.variables.SERVER_PORT, 10),
+            SERVER_PORT: this.variables.SERVER_PORT,
             SERVER_URL: this.variables.SERVER_URL,
             JWT_ACCESS_TOKEN_SECRET: this.variables.JWT_ACCESS_TOKEN_SECRET,
             JWT_ACCESS_TOKEN_EXPIRATION_TIME:
@@ -59,9 +59,9 @@ export class ConfigurationService {
         return variables;
     }
 
-    get(key: string, defaultValue: string | number): string {
-        return this.configs.hasOwnProperty(key)
-            ? this.configs[key]
-            : defaultValue;
+    get(key: string): string {
+        return this.configs.hasOwnProperty(key) ? this.configs[key] : null;
     }
 }
+
+export const configurationService = new ConfigurationService();

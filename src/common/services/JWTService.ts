@@ -6,7 +6,10 @@ import {
     sign,
     verify,
 } from 'jsonwebtoken';
-import { ConfigurationService } from '../configs/ConfigurationService';
+import {
+    ConfigurationService,
+    configurationService,
+} from '../configs/ConfigurationService';
 import { TokenException } from '../exceptions/TokenException';
 import { TokenExpiredException } from '../exceptions/TokenExpiredException';
 import { TokenMalformedException } from '../exceptions/TokenMalformedException';
@@ -19,17 +22,11 @@ export class JWTService {
     private readonly accessJwtOptions: object;
 
     constructor() {
-        this.config = new ConfigurationService();
-        this.accessJwtSecret = this.config.get(
-            'JWT_ACCESS_TOKEN_SECRET',
-            'allofsnwp032q2',
-        );
+        this.config = configurationService;
+        this.accessJwtSecret = this.config.get('JWT_ACCESS_TOKEN_SECRET');
         this.accessJwtOptions = {
             algorithm: 'HS384',
-            expiresIn: this.config.get(
-                'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
-                '20d',
-            ),
+            expiresIn: this.config.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
         };
     }
 

@@ -4,7 +4,10 @@ import {
     ServerResponse,
     createServer,
 } from 'node:http';
-import { ConfigurationService } from './common/configs/ConfigurationService';
+import {
+    ConfigurationService,
+    configurationService,
+} from './common/configs/ConfigurationService';
 import { LoggerService } from './common/services/LoggerService';
 import { Routes } from './routes/Routes';
 
@@ -15,7 +18,7 @@ export class App {
     private readonly logger: LoggerService;
 
     constructor() {
-        this.configs = new ConfigurationService();
+        this.configs = configurationService;
         this.logger = new LoggerService(App.name);
         this.application = createServer(
             async (request: IncomingMessage, response: ServerResponse) => {
@@ -23,7 +26,7 @@ export class App {
                 await Routes.mainRouter(request, response);
             },
         );
-        this.serverPort = +this.configs.get('SERVER_PORT', 3000);
+        this.serverPort = +this.configs.get('SERVER_PORT');
         this.logger.log('Initialized');
     }
 

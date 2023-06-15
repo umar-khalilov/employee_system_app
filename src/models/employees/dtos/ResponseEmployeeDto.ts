@@ -1,7 +1,7 @@
-import { CurrencyTypes } from '@/common/enums/CurrencyTypes';
-import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
-import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
 import { EmployeeEntity } from '../EmployeeEntity';
+import { CurrencyTypes } from '../../../common/enums/CurrencyTypes';
+import { DepartmentTypes } from '../../../common/enums/DepartmentTypes';
+import { SubDepartmentTypes } from '../../../common/enums/SubDepartmentTypes';
 
 export class ResponseEmployeeDto {
     readonly id: number;

@@ -1,7 +1,7 @@
-import { CurrencyTypes } from '@/common/enums/CurrencyTypes';
-import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
-import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
 import { EmployeeDto } from './dtos/EmployeeDto';
+import { CurrencyTypes } from '../../common/enums/CurrencyTypes';
+import { DepartmentTypes } from '../../common/enums/DepartmentTypes';
+import { SubDepartmentTypes } from '../../common/enums/SubDepartmentTypes';
 
 let serialId = 0;
 export class EmployeeEntity {

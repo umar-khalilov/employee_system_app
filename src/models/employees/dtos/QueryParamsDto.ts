@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional } from 'class-validator';
-import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
-import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
-import { ContractTypes } from '@/common/enums/ContractTypes';
+import { DepartmentTypes } from '../../../common/enums/DepartmentTypes';
+import { SubDepartmentTypes } from '../../../common/enums/SubDepartmentTypes';
+import { ContractTypes } from '../../../common/enums/ContractTypes';
 
 export class QueryParamsDto {
     @IsEnum(DepartmentTypes, { message: 'department must be an enum value' })

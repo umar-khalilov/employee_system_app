@@ -1,11 +1,11 @@
-import { EmployeeDto } from '@/models/employees/dtos/EmployeeDto';
+import { IncomingMessage, ServerResponse } from 'node:http';
+import { EmployeeDto } from '../models/employees/dtos/EmployeeDto';
 import { AuthService, authService } from './AuthService';
-import { LoggerService } from '@/common/services/LoggerService';
+import { LoggerService } from '../common/services/LoggerService';
 import { SignInDto } from './SignInDto';
-import { IncomingMessage, ServerResponse } from 'http';
-import { getReqData } from '@/common/utils/helpers';
-import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
-import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
+import { getReqData } from '../common/utils/helpers';
+import { createValidatorBody } from '../common/middlewares/createValidatorBody';
+import { HttpStatusCodes } from '../common/enums/HttpStatusCodes';
 
 export class AuthController {
     private static readonly instance: AuthController;

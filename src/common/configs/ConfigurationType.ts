@@ -1,4 +1,4 @@
-import { Environment } from '@/app/constants/Environment';
+import { Environment } from '../../app/constants/Environment';
 
 export type ConfigurationType = {
     readonly NODE_ENV: Environment;

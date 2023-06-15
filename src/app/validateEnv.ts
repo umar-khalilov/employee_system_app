@@ -1,8 +1,8 @@
 import { ValidationError, validateSync } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { EnvironmentVariables } from './EnvironmentVariables';
-import { HttpException } from '@/common/exceptions/HttpException';
-import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
+import { HttpException } from '../common/exceptions/HttpException';
+import { HttpStatusCodes } from '../common/enums/HttpStatusCodes';
 
 export const validateEnv = (
     config: Record<string, unknown>,

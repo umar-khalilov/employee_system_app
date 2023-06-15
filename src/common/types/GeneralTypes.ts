@@ -1,6 +1,6 @@
-import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
+import { EmployeeEntity } from '../../models/employees/EmployeeEntity';
 import { ListTables } from '../enums/ListTables';
-import { ResponseEmployeeDto } from '@/models/employees/dtos/ResponseEmployeeDto';
+import { ResponseEmployeeDto } from '../../models/employees/dtos/ResponseEmployeeDto';
 
 type TableTypes = EmployeeEntity[];
 
