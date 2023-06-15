@@ -1,5 +1,5 @@
 import { EmployeeDto } from '@/models/employees/dtos/EmployeeDto';
-import { AuthService } from './AuthService';
+import { AuthService, authService } from './AuthService';
 import { LoggerService } from '@/common/services/LoggerService';
 import { SignInDto } from './SignInDto';
 import { IncomingMessage, ServerResponse } from 'http';
@@ -8,12 +8,16 @@ import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
 import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
 
 export class AuthController {
+    private static readonly instance: AuthController;
     private readonly authService: AuthService;
     private readonly logger: LoggerService;
 
     constructor() {
+        if (AuthController.instance) {
+            return AuthController.instance;
+        }
         this.logger = new LoggerService(AuthController.name);
-        this.authService = new AuthService();
+        this.authService = authService;
         this.logger.log('Initialized');
     }
 
@@ -46,7 +50,7 @@ export class AuthController {
 
             if (validatedBody) {
                 const authData = await this.authService.signIn(validatedBody);
-                res.writeHead(HttpStatusCodes.CREATED, {
+                res.writeHead(HttpStatusCodes.OK, {
                     'Content-Type': 'application/json',
                 });
                 res.end(JSON.stringify(authData, null, 4));
@@ -59,3 +63,5 @@ export class AuthController {
         }
     }
 }
+
+export const authController = new AuthController();

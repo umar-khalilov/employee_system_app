@@ -10,10 +10,14 @@ export class EmployeeRepository
     implements IGenericRepository<EmployeeDto, EmployeeEntity>
 {
     private readonly database: InMemoryDatabase;
+    private static readonly instance: EmployeeRepository;
     private employees: EmployeeEntity[];
     private readonly logger: LoggerService;
 
     constructor() {
+        if (EmployeeRepository.instance) {
+            return EmployeeRepository.instance;
+        }
         this.logger = new LoggerService(EmployeeRepository.name);
         this.database = new InMemoryDatabase();
         void this.database.connect('www.mariadb.com');
@@ -85,3 +89,5 @@ export class EmployeeRepository
         return false;
     }
 }
+
+export const employeeRepository = new EmployeeRepository();

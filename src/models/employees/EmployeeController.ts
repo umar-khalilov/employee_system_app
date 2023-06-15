@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'node:http';
-import { EmployeeService } from './EmployeeService';
+import { EmployeeService, employeeService } from './EmployeeService';
 import { EmployeeDto } from './dtos/EmployeeDto';
 import { QueryParamsDto } from './dtos/QueryParamsDto';
 import { createValidatorQuery } from '@/common/middlewares/createValidatorQuery';
@@ -8,10 +8,14 @@ import { getReqData } from '@/common/utils/helpers';
 import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
 
 export class EmployeeController {
+    private static readonly instance: EmployeeController;
     private readonly employeeService: EmployeeService;
 
     constructor() {
-        this.employeeService = new EmployeeService();
+        if (EmployeeController.instance) {
+            return EmployeeController.instance;
+        }
+        this.employeeService = employeeService;
     }
 
     async findAllEmployees(
@@ -116,3 +120,5 @@ export class EmployeeController {
         }
     }
 }
+
+export const employeeController = new EmployeeController();

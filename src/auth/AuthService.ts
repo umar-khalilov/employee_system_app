@@ -5,35 +5,48 @@ import { JWTService } from '@/common/services/JWTService';
 import { LoggerService } from '@/common/services/LoggerService';
 import { AuthData, TokenPayload } from '@/common/types/GeneralTypes';
 import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
-import { EmployeeService } from '@/models/employees/EmployeeService';
+import {
+    EmployeeService,
+    employeeService,
+} from '@/models/employees/EmployeeService';
 import { EmployeeDto } from '@/models/employees/dtos/EmployeeDto';
 import { SignInDto } from './SignInDto';
+import { ResponseEmployeeDto } from '@/models/employees/dtos/ResponseEmployeeDto';
 
 export class AuthService {
+    private static readonly instance: AuthService;
     private readonly employeeService: EmployeeService;
     private readonly jwtService: JWTService;
     private readonly hashService: HashService;
     private readonly logger: LoggerService;
 
     constructor() {
+        if (AuthService.instance) {
+            return AuthService.instance;
+        }
         this.logger = new LoggerService(AuthService.name);
-        this.employeeService = new EmployeeService();
+        this.employeeService = employeeService;
         this.hashService = new HashService();
         this.jwtService = new JWTService();
         this.logger.log('Initialized');
     }
 
-    async validateEmployee(
+    private async validateEmployee(
         email: string,
         password: string,
     ): Promise<EmployeeEntity> {
-        const employee = await this.employeeService.findEmployeeByEmail(email);
+        const newEmployee = await this.employeeService.findEmployeeByEmail(
+            email,
+        );
 
         if (
-            employee &&
-            (await this.hashService.checkIsMatch(password, employee?.password))
+            newEmployee &&
+            (await this.hashService.checkIsMatch(
+                password,
+                newEmployee?.password,
+            ))
         ) {
-            return employee;
+            return newEmployee;
         }
         throw new UnauthorizedException();
     }
@@ -45,33 +58,35 @@ export class AuthService {
         if (candidate) {
             throw new EmployeeAlreadyExistException(candidate.email);
         }
-        const employee = await this.employeeService.createOneEmployee({
+        const newEmployee = await this.employeeService.createOneEmployee({
             ...data,
             password: await this.hashService.passwordHash(data.password),
         });
 
         const payload: TokenPayload = {
-            sub: employee.id,
-            name: employee.name,
-            email: employee.email,
+            sub: newEmployee.id,
+            name: newEmployee.name,
+            email: newEmployee.email,
         };
 
-        employee.password = null;
         const accessToken = await this.jwtService.generateAccessJWT(payload);
-
+        const employee = new ResponseEmployeeDto(newEmployee);
         return { employee, tokens: { access: accessToken } };
     }
 
     async signIn({ email, password }: SignInDto): Promise<AuthData> {
-        const employee = await this.validateEmployee(email, password);
+        const validatedEmployee = await this.validateEmployee(email, password);
 
         const payload: TokenPayload = {
-            sub: employee.id,
-            name: employee.name,
-            email: employee.email,
+            sub: validatedEmployee.id,
+            name: validatedEmployee.name,
+            email: validatedEmployee.email,
         };
-        employee.password = null;
+
         const accessToken = await this.jwtService.generateAccessJWT(payload);
+        const employee = new ResponseEmployeeDto(validatedEmployee);
         return { employee, tokens: { access: accessToken } };
     }
 }
+
+export const authService = new AuthService();

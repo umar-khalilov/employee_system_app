@@ -1,5 +1,6 @@
 import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
 import { ListTables } from '../enums/ListTables';
+import { ResponseEmployeeDto } from '@/models/employees/dtos/ResponseEmployeeDto';
 
 type TableTypes = EmployeeEntity[];
 
@@ -14,7 +15,7 @@ type TokenPayload = {
 };
 
 type AuthData = {
-    readonly employee: Partial<EmployeeEntity>;
+    readonly employee: ResponseEmployeeDto;
     readonly tokens: {
         readonly access: string;
         readonly refresh?: string;

@@ -1,14 +1,17 @@
-import { hashPassword, validatePassword } from 'metautil';
+import { createHash } from 'node:crypto';
 
 export class HashService {
     async passwordHash(plainPassword: string): Promise<string> {
-        return hashPassword(plainPassword);
+        const hash = createHash('sha256');
+        hash.update(plainPassword);
+        return hash.digest('hex');
     }
 
     async checkIsMatch(
-        plainValue: string,
-        hashedValue: string,
+        plainPassword: string,
+        hashedPassword: string,
     ): Promise<boolean> {
-        return validatePassword(plainValue, hashedValue);
+        const hashedValue = await this.passwordHash(plainPassword);
+        return hashedValue === hashedPassword;
     }
 }

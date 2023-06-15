@@ -3,7 +3,7 @@ import { DepartmentTypes } from '@/common/enums/DepartmentTypes';
 import { SubDepartmentTypes } from '@/common/enums/SubDepartmentTypes';
 import { EmployeeDto } from './dtos/EmployeeDto';
 
-let serialId = 9;
+let serialId = 0;
 export class EmployeeEntity {
     readonly id: number;
     name: string;
