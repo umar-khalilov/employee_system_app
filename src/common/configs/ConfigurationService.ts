@@ -59,7 +59,7 @@ export class ConfigurationService {
         return variables;
     }
 
-    get(key: string, defaultValue: string | number): string | number {
+    get(key: string, defaultValue: string | number): string {
         return this.configs.hasOwnProperty(key)
             ? this.configs[key]
             : defaultValue;

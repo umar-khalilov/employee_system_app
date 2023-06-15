@@ -5,6 +5,7 @@ import { LoggerService } from '@/common/services/LoggerService';
 import { EmployeeDto } from './dtos/EmployeeDto';
 import { BadRequestException } from '@/common/exceptions/BadRequestException';
 import { IEmployee } from './interfaces/IEmployee';
+import { QueryParamsDto } from './dtos/QueryParamsDto';
 
 export class EmployeeService implements IEmployee {
     private readonly logger: LoggerService;
@@ -24,6 +25,10 @@ export class EmployeeService implements IEmployee {
         return createdEmployee;
     }
 
+    async findEmployeeByEmail(email: string): Promise<EmployeeEntity> {
+        return this.employeeRepository.findByEmail(email);
+    }
+
     async findOneEmployee(id: number): Promise<EmployeeEntity> {
         const foundEmployee = await this.employeeRepository.findOne(id);
         if (!foundEmployee) {
@@ -34,8 +39,8 @@ export class EmployeeService implements IEmployee {
         return foundEmployee;
     }
 
-    async findAllEmployees(): Promise<EmployeeEntity[]> {
-        const employees = await this.employeeRepository.findAll();
+    async findAllEmployees(query: QueryParamsDto): Promise<EmployeeEntity[]> {
+        const employees = await this.employeeRepository.findAll(query);
         if (!employees.length) {
             throw new NotFoundException('Not found employees in database');
         }

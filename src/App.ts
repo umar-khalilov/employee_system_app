@@ -20,7 +20,7 @@ export class App {
         this.application = createServer(
             async (request: IncomingMessage, response: ServerResponse) => {
                 this.turnOnHeaders(request, response);
-                Routes.mainRouter(request, response);
+                await Routes.mainRouter(request, response);
             },
         );
         this.serverPort = +this.configs.get('SERVER_PORT', 3000);
@@ -44,7 +44,7 @@ export class App {
         this.application.listen(this.serverPort, () => {
             this.logger.log(`Application successfully started!`);
             this.logger.system(
-                `Application url address available on: http://localhost:${this.serverPort}`,
+                `Application url address available on: http://localhost:${this.serverPort}/api`,
             );
         });
     }

@@ -1,35 +1,118 @@
-import { EmployeeEntity } from './EmployeeEntity';
+import { IncomingMessage, ServerResponse } from 'node:http';
 import { EmployeeService } from './EmployeeService';
 import { EmployeeDto } from './dtos/EmployeeDto';
-import { IEmployee } from './interfaces/IEmployee';
+import { QueryParamsDto } from './dtos/QueryParamsDto';
+import { createValidatorQuery } from '@/common/middlewares/createValidatorQuery';
+import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
+import { getReqData } from '@/common/utils/helpers';
+import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
 
-export class EmployeeController implements IEmployee {
+export class EmployeeController {
     private readonly employeeService: EmployeeService;
 
     constructor() {
         this.employeeService = new EmployeeService();
     }
 
-    async createOneEmployee(data: EmployeeDto): Promise<EmployeeEntity> {
-        return this.employeeService.createOneEmployee(data);
+    async findAllEmployees(
+        req: IncomingMessage,
+        res: ServerResponse,
+        searchParams: URLSearchParams,
+    ): Promise<Promise<void>> {
+        try {
+            const query = Object.fromEntries(searchParams.entries());
+            const validator = createValidatorQuery(QueryParamsDto);
+            const validatedQuery = await validator(req, res, query);
+
+            if (validatedQuery) {
+                const employees = await this.employeeService.findAllEmployees(
+                    validatedQuery,
+                );
+
+                if (employees.length) {
+                    res.writeHead(HttpStatusCodes.OK, {
+                        'Content-Type': 'application/json',
+                    });
+                    res.end(JSON.stringify(employees, null, 4));
+                }
+            }
+        } catch (error) {
+            res.writeHead(error.status, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify(error, null, 4));
+        }
     }
 
-    async findAllEmployees(): Promise<EmployeeEntity[]> {
-        return this.employeeService.findAllEmployees();
-    }
+    async findOneEmployee(
+        req: IncomingMessage,
+        res: ServerResponse,
+    ): Promise<void> {
+        try {
+            const id = parseInt(req.url.split('/')[3], 10);
+            const isRemoved = await this.employeeService.findOneEmployee(id);
 
-    async findOneEmployee(id: number): Promise<EmployeeEntity> {
-        return this.employeeService.findOneEmployee(id);
+            if (isRemoved) {
+                res.writeHead(HttpStatusCodes.OK, {
+                    'Content-Type': 'application/json',
+                });
+                res.end(JSON.stringify(isRemoved, null, 4));
+            }
+        } catch (error) {
+            res.writeHead(error.status, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify(error, null, 4));
+        }
     }
 
     async updateOneEmployee(
-        id: number,
-        data: EmployeeDto,
-    ): Promise<EmployeeEntity> {
-        return this.employeeService.updateOneEmployee(id, data);
+        req: IncomingMessage,
+        res: ServerResponse,
+    ): Promise<void> {
+        try {
+            const id = parseInt(req.url.split('/')[3], 10);
+            const body = await getReqData(req);
+            const validator = createValidatorBody(EmployeeDto);
+            const validatedBody = await validator(req, res, JSON.parse(body));
+
+            if (validatedBody) {
+                const updatedEmployee =
+                    await this.employeeService.updateOneEmployee(
+                        id,
+                        validatedBody,
+                    );
+
+                res.writeHead(HttpStatusCodes.ACCEPTED, {
+                    'Content-Type': 'application/json',
+                });
+                res.end(JSON.stringify(updatedEmployee, null, 4));
+            }
+        } catch (error) {
+            res.writeHead(error.status, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify(error, null, 4));
+        }
     }
 
-    async removeOneEmployee(id: number): Promise<boolean> {
-        return this.employeeService.removeOneEmployee(id);
+    async removeOneEmployee(
+        req: IncomingMessage,
+        res: ServerResponse,
+    ): Promise<void> {
+        try {
+            const id = parseInt(req.url.split('/')[3], 10);
+            const isRemoved = await this.employeeService.removeOneEmployee(id);
+
+            if (isRemoved) {
+                res.writeHead(HttpStatusCodes.NO_CONTENT);
+                res.end();
+            }
+        } catch (error) {
+            res.writeHead(error.status, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify(error, null, 4));
+        }
     }
 }

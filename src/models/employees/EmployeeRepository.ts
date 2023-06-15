@@ -1,9 +1,10 @@
-import { LoggerService } from '@/common/services/LoggerService';
 import { IGenericRepository } from '../abstracts/IGenericRepository';
 import { EmployeeEntity } from './EmployeeEntity';
 import { InMemoryDatabase } from '@/app/InMemoryDatabase';
+import { LoggerService } from '@/common/services/LoggerService';
 import { ListTables } from '@/common/enums/ListTables';
 import { EmployeeDto } from './dtos/EmployeeDto';
+import { QueryParamsDto } from './dtos/QueryParamsDto';
 
 export class EmployeeRepository
     implements IGenericRepository<EmployeeDto, EmployeeEntity>
@@ -24,12 +25,42 @@ export class EmployeeRepository
         this.employees = await this.database.get(table);
     }
 
-    async findAll(): Promise<Array<EmployeeEntity>> {
-        return this.employees;
+    async findAll(query: QueryParamsDto): Promise<Array<EmployeeEntity>> {
+        const isEmpty = Object.values(query).every(
+            value => value === undefined,
+        );
+
+        if (!isEmpty) {
+            return this.employees.filter(
+                employee => this.processConditions(query, employee) && employee,
+            );
+        } else {
+            return this.employees;
+        }
     }
 
-    async findOne(id): Promise<EmployeeEntity> {
+    private processConditions(
+        query: QueryParamsDto,
+        employee: EmployeeEntity,
+    ): boolean {
+        const fields = {
+            department: query?.department,
+            sub_department: query?.subdepartment,
+            on_contract: !!query?.contract,
+        };
+        return (
+            fields.on_contract === employee.on_contract ||
+            fields.department === employee.department ||
+            fields.sub_department === employee.sub_department
+        );
+    }
+
+    async findOne(id: number): Promise<EmployeeEntity> {
         return this.employees.find(employee => employee.id === id);
+    }
+
+    async findByEmail(email: string): Promise<EmployeeEntity> {
+        return this.employees.find(employee => employee.email === email);
     }
 
     async createOne(data: EmployeeDto): Promise<EmployeeEntity> {

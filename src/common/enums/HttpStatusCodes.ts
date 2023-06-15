@@ -7,5 +7,7 @@ export enum HttpStatusCodes {
     UNAUTHORIZED = 401,
     FORBIDDEN = 403,
     NOT_FOUND = 404,
+    CONFLICT = 409,
+    AUTHENTICATION_TIMEOUT = 419,
     INTERNAL_SERVER_ERROR = 500,
 }
