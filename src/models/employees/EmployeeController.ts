@@ -6,6 +6,8 @@ import { createValidatorQuery } from '@/common/middlewares/createValidatorQuery'
 import { HttpStatusCodes } from '@/common/enums/HttpStatusCodes';
 import { getReqData } from '@/common/utils/helpers';
 import { createValidatorBody } from '@/common/middlewares/createValidatorBody';
+import { verifyAccessToken } from '@/common/middlewares/verifyAccessToken';
+import { UnauthorizedException } from '@/common/exceptions/UnauthorizedException';
 
 export class EmployeeController {
     private static readonly instance: EmployeeController;
@@ -24,6 +26,10 @@ export class EmployeeController {
         searchParams: URLSearchParams,
     ): Promise<Promise<void>> {
         try {
+            const tokenData = await verifyAccessToken(req);
+            if (!tokenData) {
+                throw new UnauthorizedException('User is not authorizated');
+            }
             const query = Object.fromEntries(searchParams.entries());
             const validator = createValidatorQuery(QueryParamsDto);
             const validatedQuery = await validator(req, res, query);
@@ -53,6 +59,10 @@ export class EmployeeController {
         res: ServerResponse,
     ): Promise<void> {
         try {
+            const tokenData = await verifyAccessToken(req);
+            if (!tokenData) {
+                throw new UnauthorizedException('User is not authorizated');
+            }
             const id = parseInt(req.url.split('/')[3], 10);
             const isRemoved = await this.employeeService.findOneEmployee(id);
 
@@ -75,6 +85,11 @@ export class EmployeeController {
         res: ServerResponse,
     ): Promise<void> {
         try {
+            const tokenData = await verifyAccessToken(req);
+            if (!tokenData) {
+                throw new UnauthorizedException('User is not authorizated');
+            }
+
             const id = parseInt(req.url.split('/')[3], 10);
             const body = await getReqData(req);
             const validator = createValidatorBody(EmployeeDto);
@@ -105,6 +120,11 @@ export class EmployeeController {
         res: ServerResponse,
     ): Promise<void> {
         try {
+            const tokenData = await verifyAccessToken(req);
+            if (!tokenData) {
+                throw new UnauthorizedException('User is not authorizated');
+            }
+
             const id = parseInt(req.url.split('/')[3], 10);
             const isRemoved = await this.employeeService.removeOneEmployee(id);
 

@@ -1,7 +1,7 @@
 import { EmployeeAlreadyExistException } from '@/common/exceptions/EmployeeAlreadyExistException';
 import { UnauthorizedException } from '@/common/exceptions/UnauthorizedException';
 import { HashService } from '@/common/services/HashService';
-import { JWTService } from '@/common/services/JWTService';
+import { JWTService, jwtService } from '@/common/services/JWTService';
 import { LoggerService } from '@/common/services/LoggerService';
 import { AuthData, TokenPayload } from '@/common/types/GeneralTypes';
 import { EmployeeEntity } from '@/models/employees/EmployeeEntity';
@@ -27,7 +27,7 @@ export class AuthService {
         this.logger = new LoggerService(AuthService.name);
         this.employeeService = employeeService;
         this.hashService = new HashService();
-        this.jwtService = new JWTService();
+        this.jwtService = jwtService;
         this.logger.log('Initialized');
     }
 

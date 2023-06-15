@@ -1,6 +1,6 @@
 import {
-    DecodeOptions,
     JsonWebTokenError,
+    JwtPayload,
     NotBeforeError,
     TokenExpiredError,
     sign,
@@ -49,13 +49,13 @@ export class JWTService {
         });
     }
 
-    async verifyAccessJWT(token: string): Promise<DecodeOptions> {
+    async verifyAccessJWT(token: string): Promise<JwtPayload> {
         return new Promise((resolve, reject) => {
             verify(
                 token,
                 this.accessJwtSecret,
                 this.accessJwtOptions,
-                (err: JsonWebTokenError, decodedData: DecodeOptions) => {
+                (err: JsonWebTokenError, decodedData: JwtPayload) => {
                     if (err?.name === TokenExpiredError.name) {
                         reject(new TokenExpiredException(err['expiredAt']));
                     }
@@ -71,3 +71,5 @@ export class JWTService {
         });
     }
 }
+
+export const jwtService = new JWTService();

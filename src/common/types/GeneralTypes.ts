@@ -14,6 +14,14 @@ type TokenPayload = {
     readonly email: string;
 };
 
+type TokenData = {
+    readonly sub: number;
+    readonly name: string;
+    readonly email: string;
+    readonly iat: number;
+    readonly exp: number;
+};
+
 type AuthData = {
     readonly employee: ResponseEmployeeDto;
     readonly tokens: {
@@ -22,4 +30,4 @@ type AuthData = {
     };
 };
 
-export { TableTypes, ListGenericTables, TokenPayload, AuthData };
+export { TableTypes, ListGenericTables, TokenPayload, TokenData, AuthData };
