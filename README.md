@@ -4,7 +4,7 @@ Vanilla Node.js REST API in which you can manage employees
 
 ### Requirements
 
-Node.js 20 version
+Node.js 18-20 versions
 
 ### Installing the dependencies
 
