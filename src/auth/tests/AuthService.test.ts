@@ -1,10 +1,10 @@
 import { AuthService, authService } from '../AuthService';
-import { EmployeeAlreadyExistException } from './../../common/exceptions/EmployeeAlreadyExistException';
+import { EmployeeDto } from '../../models/employees/dtos/EmployeeDto';
+import { SignInDto } from '../SignInDto';
 import { DepartmentTypes } from './../../common/enums/DepartmentTypes';
 import { CurrencyTypes } from '../../common/enums/CurrencyTypes';
 import { SubDepartmentTypes } from '../../common/enums/SubDepartmentTypes';
-import { EmployeeDto } from '../../models/employees/dtos/EmployeeDto';
-import { SignInDto } from '../SignInDto';
+import { EmployeeAlreadyExistException } from './../../common/exceptions/EmployeeAlreadyExistException';
 import { UnauthorizedException } from './../../common/exceptions/UnauthorizedException';
 
 describe(`The ${AuthService.name}`, () => {

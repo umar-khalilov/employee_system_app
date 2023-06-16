@@ -81,7 +81,7 @@ export class EmployeeService implements IEmployee {
         const isRemoved = await this.employeeRepository.removeOne(id);
         if (!isRemoved) {
             throw new NotFoundException(
-                `Employee with that: ${id} was not found`,
+                `Employee with that id: ${id} was not found`,
             );
         }
         return isRemoved;

@@ -75,8 +75,10 @@ export class EmployeeRepository
 
     async updateOne(id: number, data: EmployeeDto): Promise<EmployeeEntity> {
         const employee = await this.findOne(id);
-        Object.assign(employee, data);
-        return employee;
+        if (employee) {
+            Object.assign(employee, data);
+            return employee;
+        }
     }
 
     async removeOne(id: number): Promise<boolean> {
