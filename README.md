@@ -4,7 +4,7 @@ Vanilla Node.js REST API in which you can manage employees
 
 ### Requirements
 
-Node.js 18-20 versions
+Node.js 18- 20 versions and yarn 1.22.19 or later
 
 ### Installing the dependencies
 
