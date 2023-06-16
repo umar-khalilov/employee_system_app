@@ -13,10 +13,18 @@ $ yarn install
 ```
 
 ### Running the app in development mode
-
 ```bash
 $ yarn start:dev
 ```
+
+### Running the app tests
+
+```bash
+
+$ yarn test
+
+```
+
 
 ### Running the app in production mode
 
