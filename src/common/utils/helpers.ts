@@ -47,7 +47,7 @@ const conditions = {
             (pathname === Paths.EMPLOYEES && req.method === HttpMethods.GET) ||
             searchParams.has('department') ||
             searchParams.has('subdepartment') ||
-            searchParams.has('on-contract')
+            searchParams.has('on_contract')
         );
     },
     isGet: (req: IncomingMessage, pathname: string) => {

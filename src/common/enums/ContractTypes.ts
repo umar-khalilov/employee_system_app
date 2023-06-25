@@ -1,4 +1,4 @@
 export enum ContractTypes {
-    false,
-    true,
+    false = 'false',
+    true = 'true',
 }

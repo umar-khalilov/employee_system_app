@@ -16,5 +16,5 @@ export class QueryParamsDto {
 
     @IsEnum(ContractTypes, { message: 'contract must be an enum value' })
     @IsOptional()
-    readonly contract?: ContractTypes;
+    readonly on_contract?: ContractTypes;
 }

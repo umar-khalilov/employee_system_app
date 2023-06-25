@@ -61,13 +61,14 @@ export class EmployeeService implements IEmployee {
         id: number,
         data: EmployeeDto,
     ): Promise<ResponseEmployeeDto> {
+        let hashedPassword: string;
         if (data.password) {
-            await this.hashService.passwordHash(data.password);
+            hashedPassword = await this.hashService.passwordHash(data.password);
         }
-        const updatedEmployee = await this.employeeRepository.updateOne(
-            id,
-            data,
-        );
+        const updatedEmployee = await this.employeeRepository.updateOne(id, {
+            ...data,
+            password: hashedPassword,
+        });
 
         if (!updatedEmployee) {
             throw new NotFoundException(

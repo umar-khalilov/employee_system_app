@@ -5,6 +5,7 @@ import { LoggerService } from '../../common/services/LoggerService';
 import { ListTables } from '../../common/enums/ListTables';
 import { EmployeeDto } from './dtos/EmployeeDto';
 import { QueryParamsDto } from './dtos/QueryParamsDto';
+import { ContractTypes } from '../../common/enums/ContractTypes';
 
 export class EmployeeRepository
     implements IGenericRepository<EmployeeDto, EmployeeEntity>
@@ -47,11 +48,19 @@ export class EmployeeRepository
         query: QueryParamsDto,
         employee: EmployeeEntity,
     ): boolean {
+        let on_contract: boolean;
+        if (query?.on_contract === ContractTypes.false) {
+            on_contract = false;
+        } else if (query?.on_contract === ContractTypes.true) {
+            on_contract = true;
+        }
+
         const fields = {
             department: query?.department,
             sub_department: query?.subdepartment,
-            on_contract: !!query?.contract,
+            on_contract,
         };
+
         return (
             fields.on_contract === employee.on_contract ||
             fields.department === employee.department ||
