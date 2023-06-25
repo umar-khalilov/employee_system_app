@@ -18,6 +18,12 @@ $ yarn install
 $ yarn start:dev
 ```
 
+### Running the app tests
+
+```bash
+$ yarn test
+```
+
 ### Running the app in production mode
 
 ```bash
@@ -83,7 +89,7 @@ $ yarn start:prod
     CustomerOnboarding,
     Agriculture.
 
--   contract (enum): true, false.
+-   on_contract (enum): true, false.
 
 ```http request
 http://localhost:4000/api/employees
